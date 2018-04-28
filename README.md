@@ -47,76 +47,99 @@ Review the Feed Reader Testing [Project Rubric](https://review.udacity.com/#!/pr
 20. When complete - all of your tests should pass. 
 21. Write a README file detailing all steps required to successfully run the application. If you have added additional tests (for Udacious Test Coverage),  provide documentation for what these future features are and what the tests are checking for.
 
+**How To Run this App**
+=======================
+1. Download this repo so Jasmine can work locally
+2. Open the index.html to see it all in action!
 
 **Journal**
-------------------
+=====================
 
-
+This is a journal about how I proceded with this project.
 Begin by gathering info on how to proceed. Looking at Jasmine tutorials
 Following commented instrutions:
 
 
-1. /* TODO: Write a test that loops through each feed
-    * in the allFeeds object and ensures it has a URL defined
-    * and that the URL is not empty.
-    */
+1. /* TODO: Write a test that loops through each feed in the allFeeds object and ensures it has a URL defined and that the URL is not empty.*/
 
-    Looks like I habe to loop though all URL items and check them. Think I will use forEach.
+    Looks like I have to loop though all URL items and check them. Think I will use forEach.
         Done, I think. 
 
-2. /* TODO: Write a test that loops through each feed
-    * in the allFeeds object and ensures it has a name defined
-    * and that the name is not empty.
-    */
+2. /* TODO: Write a test that loops through each feed in the allFeeds object and ensures it has a name defined and that the name is not empty.*/
+
     Done
-    Why does console.log(item.name) gets ignored in the name test, while it works in the url test??
+
+        Why does console.log(item.name) gets ignored in the name test, while it works in the url test??
 
 3. /* TODO: Write a new test suite named "The menu" */
+
     Done
 
-4. /* TODO: Write a test that ensures the menu element is
-    * hidden by default. You'll have to analyze the HTML and
-    * the CSS to determine how we're performing the
-    * hiding/showing of the menu element.
-    */
+4. /* TODO: Write a test that ensures the menu element is hidden by default. You'll have to analyze the HTML and the CSS to determine how we're performing the hiding/showing of the menu element.*/
+
     Done
-    That was fairly easy I think. Used .tobeTruthy;
+
+        That was fairly easy I think. Used .tobe(true);
 
 5.  /* TODO: Write a new test suite named "The menu" */
+
     Done
 
-6. /* TODO: Write a test that ensures the menu changes
-    * visibility when the menu icon is clicked. This test
-    * should have two expectations: does the menu display when
-    * clicked and does it hide when clicked again.
-    */
+6. /* TODO: Write a test that ensures the menu changes visibility when the menu icon is clicked. This test should have two expectations: does the menu display when clicked and does it hide when clicked again.*/
+
     Done, but:
-    I am not sure how to write 2 expectations with 2 click events. Hope my solution works.
-    I went with the .hasClass ....tobeFalsy or .tobeTruthy 'cause the "menu-hidden" is not replaced with another class.
-    NOT WORKING! returns 'has no expectations'! Got it, it didn't like toBeFalsy/Truthy, and I forgot the . before the selector, and a typo.
+
+        I am not sure how to write 2 expectations with 2 click events. Hope my solution works.
+        I went with the .hasClass ....tobeFalsy or .tobeTruthy 'cause the "menu-hidden" is not replaced with another class.
+
+        NOT WORKING! returns 'has no expectations'! Got it, it didn't like toBeFalsy/Truthy, and I forgot the . before the selector, and a typo.
 
 7. /* TODO: Write a new test suite named "Initial Entries" */
+
     Done. That is the easy part!
 
-8. /* TODO: Write a test that ensures when the loadFeed
-    * function is called and completes its work, there is at least
-    * a single .entry element within the .feed container.
-    * Remember, loadFeed() is asynchronous so this test will require
-    * the use of Jasmine's beforeEach and asynchronous done() function.
-    */
+8. /* TODO: Write a test that ensures when the loadFeed function is called and completes its work, there is at least a single .entry element within the .feed container. Remember, loadFeed() is asynchronous so this test will require the use of Jasmine's beforeEach and asynchronous done() function.*/
+
     Done
-    I needed a lot of hints for this one. Calling loadFeed() correctly was not obvious. I had to pass the correct arguments so it works. Calling done() at the end, as explicitily asked.
+    
+        I needed a lot of hints for this one. Calling loadFeed() correctly was not obvious. I had to pass the correct arguments so it works. Calling done() at the end, as explicitily asked.
 
 9. /* TODO: Write a new test suite named "New Feed Selection" */
+
     Done
 
-10. /* TODO: Write a test that ensures when a new feed is loaded
-    * by the loadFeed function that the content actually changes.
-    * Remember, loadFeed() is asynchronous.
-    */
+10. /* TODO: Write a test that ensures when a new feed is loaded by the loadFeed function that the content actually changes. Remember, loadFeed() is asynchronous.*/
+
     Done.
-    The key here was to understand that  I had to store the 2 feed in 2 variables so I can compare them. Of course, I had to call loadFeed() twice so I could store each result separately.
+
+        The key here was to understand that  I had to store the 2 feed in 2 variables so I can compare them. Of course, I had to call loadFeed() twice so I could store each result separately.
+
+        Correction:
+        After submiting, the reviewer suggested I refactor the code so it actually works asynchronous
+        this is what they wrote:
+
+                Well done implemeting this and feeds are indeed loaded one after the other but this really is not right way of doing it.
+
+                Look at first time you call
+
+                loadFeed(0, function () { //This is first feed
+                    // .... doing stuff here ..........
+                    // what if I call loadFeed(1, callback) in here?
+                    loadFeed(1, function() { //this is second feed
+                            // .... doing stuff here ..........
+                        // and now all I need is just to end it
+                        done();
+                    })
+                })
+
+        This would be asynchronous way of doing things 😉
+
+11. The reviewer pointed out that instructions how to run the app must be included in this file. Implementing now.
 
 **Aknowledgements**
----------------
+=====================
 I would like to thank the community for their support. I could not do this otherwise
+
+**Final Thoughts**
+===================
+It is hard to figure out someone else's code, In this case AJAX was used, as well as Handlebars. Never seen it before, so some hints were needed.
